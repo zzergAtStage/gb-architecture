@@ -1,0 +1,98 @@
+@startuml
+' tunes
+' page 2x2
+'left to right direction
+skinparam componentStyle rectangle
+
+class Client{
+    -id: UUID
+    -Name: String
+}
+
+component Factory {
+    interface BureauFabric{
+        +getClientCreditWorthiness(Client): CreditRating
+        +getClientLoansHistory(Client) LoanHistory[]
+        +addLoanHistory(Client, Loan)
+        -updateClientCreditWorthiness(Client, Loan)
+    }
+
+    class ConcreteBureauFabric{
+        -concreteBureauFabric
+        ConcreteBureauFabric(): BureauFabric
+    }
+    note right : Singleton
+
+    ConcreteBureauFabric::concreteBureauFabric -> ConcreteBureauFabric
+    class Equifax implements BureauFabric{}
+    class Experian implements BureauFabric{}
+    class TransUnion implements BureauFabric{}
+
+    ConcreteBureauFabric -u.> TransUnion
+    ConcreteBureauFabric -u.> Experian
+    ConcreteBureauFabric -u.> Equifax
+}
+
+
+
+
+
+namespace Credit{
+    class Loan{
+        -clientId: UUID
+        -loanType: LoanType
+        -loanRecord: Records[]
+    }
+
+    class Record{
+        -loanId: long
+        -records: Record[]
+    }
+   enum LoanType{
+               LOAN
+               CREDIT_CARD
+               LEND
+               LEASING
+   }
+   Loan::loanType -> LoanType
+   Loan::clientId --> Client::id
+   Loan::loanRecord "1" --* "1..*" Record
+
+}
+namespace CreditHistoryEntity {
+        class CreditRating{
+            -clientId: UUID
+            -creditBureau: bureauId
+            -ratingValue: int
+        }
+
+
+        class CreditHistory{
+            -clientId: UUID
+            -loans: Loan[]
+        }
+}
+
+
+BureauFabric -> Client
+CreditRating <- BureauFabric
+BureauFabric -left-> CreditHistory
+CreditHistory "0..*"--* Loan
+
+namespace NotificationService{
+    class NotificationService{
+        -observers: Observer[]
+        +addObserver()
+        +removeObserver(Observer)
+        +getObservers(): observers
+    }
+    interface Observer extends Factory.BureauFabric{}
+    Observer <. NotificationService
+}
+
+class Bank implements NotificationService.NotificationService{
+    +ApplyNewLoan(Client, Loan)
+}
+Bank -> Factory.ConcreteBureauFabric
+
+@enduml

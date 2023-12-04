@@ -15,12 +15,12 @@ public abstract class LogReader {
 
     /**
      * Шаблонный метод
+     *
      * @return
      */
-    public Iterable<LogEntry> readLogEntry(){
+    public Iterable<LogEntry> readLogEntry() {
         ArrayList<LogEntry> logEntries = new ArrayList<>();
-        for (String s: readEntries(currentPosition))
-        {
+        for (String s : readEntries(currentPosition)) {
             logEntries.add(parseLogEntry(s));
         }
         return logEntries;
