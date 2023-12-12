@@ -2,7 +2,7 @@ package com.zergatstage.s02;
 
 public class Sample01 {
 
-    public static String data = """
+    public static String data = "";/*"
 У лукоморья дуб зелёный;
 Златая цепь на дубе том:
 И днём и ночью кот учёный
@@ -36,7 +36,7 @@ public class Sample01 {
 У моря видел дуб зелёный;
 Под ним сидел, и кот учёный
 Свои мне сказки говорил.""";
-
+*/
     public static void main(String[] args) {
         LogReader logReader = new PoemReader(data);
         logReader.setCurrentPosition(30);

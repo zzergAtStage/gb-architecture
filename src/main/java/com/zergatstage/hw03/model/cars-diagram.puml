@@ -1,0 +1,115 @@
+@startuml
+class Program [[java:com.zergatstage.hw03.Program]] {
+	+{static} main(args: String[]): void
+	+{static} calculateMaintenance(car: Car): double
+}
+class Harvester [[java:com.zergatstage.hw03.cars.Harvester]] {
+	+Harvester(make: String, model: String, color: Color)
+	+sweeping(): void
+	+movement(): void
+	+maintenance(): void
+	+gearShifting(): boolean
+	+switchHeadlights(): boolean
+	+switchWipers(): boolean
+}
+Car <|-- Harvester
+class SportCar [[java:com.zergatstage.hw03.cars.SportCar]] {
+	-SportCar(make: String, model: String, color: Color, wheelsCount: int)
+	+{static} create(make: String, model: String, color: Color): SportCar
+	+{static} create(make: String, model: String, color: Color, wheelsCount: int): SportCar
+	+movement(): void
+	+maintenance(): void
+	+gearShifting(): boolean
+	+switchHeadlights(): boolean
+	+switchWipers(): boolean
+}
+Car <|-- SportCar
+class RefuelingStationV2 [[java:com.zergatstage.hw03.controller.RefuelingStationV2]] {
+	+processCarFuel(fuelType: FuelType): void
+	+fuel(fuelType: FuelType): void
+}
+
+Refueling <|.. RefuelingStationV2
+class RefuelingStation [[java:com.zergatstage.hw03.controller.RefuelingStation]] {
+	+fuel(fuelType: FuelType): void
+}
+
+Refueling <|.. RefuelingStation
+class ServiceStation [[java:com.zergatstage.hw03.controller.ServiceStation]] {
+	+setLocalRefuelingService(localRefuelingService: Refueling): void
+	+getCarToTheService(car: Car): void
+	-isThereEmptyPost(): boolean
+	+returnCarFromService(serviceTicket: int): Car
+	+changeGearBox(car: Car, gearBox: GearBox): void
+	+fuel(fuelType: FuelType): void
+	+wipMirrors(): void
+	+wipWindshield(): void
+	+wipHeadlights(): void
+}
+
+ServiceStation --> "*" Car : servicedCars
+ServiceStation -left-> RefuelingStation
+Refueling <|.. ServiceStation
+interface Wiping {
+}
+Wiping <|.. ServiceStation
+
+enum GearboxType [[java:com.zergatstage.hw03.model.GearboxType]] {
+	AT
+	MT
+}
+class GearBox [[java:com.zergatstage.hw03.model.GearBox]] {
+	-manufacturer: String
+	+getManufacturer(): String
+	+GearBox(type: GearboxType, manufacturer: String)
+}
+GearBox --> "1" GearboxType
+enum CarType [[java:com.zergatstage.hw03.model.CarType]] {
+	Sedan
+	Hatchback
+	Pickup
+	Sport
+}
+abstract class Car [[java:com.zergatstage.hw03.model.Car]] {
+	-fogLights: boolean
+	-make: String
+	-model: String
+	-color: Color
+	#wheelsCount: int
+	-engineCapacity: double
+	+Car(make: String, model: String, color: Color)
+	+setRefuelingStation(refuelingStation: Refueling): void
+	+fuel(): void
+	+getWheelsCount(): int
+	+{abstract} movement(): void
+	+{abstract} maintenance(): void
+	+{abstract} gearShifting(): boolean
+	+{abstract} switchHeadlights(): boolean
+	+{abstract} switchWipers(): boolean
+	+switchFogLights(): boolean
+	+setCarType(carType: CarType): void
+	+isFogLights(): boolean
+	+getMake(): String
+	+getModel(): String
+	+getColor(): Color
+	+getEngineCapacity(): double
+}
+
+Car --> "1" FuelType : fuelType
+Car --> "1" Refueling : getRefueling()
+Car --> "1" CarType : getCarType()
+
+enum FuelType [[java:com.zergatstage.hw03.model.FuelType]] {
+	Diesel
+	Gasoline
+}
+interface Wiping [[java:com.zergatstage.hw03.model.Wiping]] {
+	wipMirrors(): void
+	wipWindshield(): void
+	wipHeadlights(): void
+}
+interface Refueling [[java:com.zergatstage.hw03.model.Refueling]] {
+	fuel(fuelType: FuelType): void
+}
+
+@enduml

@@ -1,0 +1,212 @@
+@startuml
+
+/' diagram meta data start
+config=StructureConfiguration;
+{
+  "projectClassification": {
+    "searchMode": "OpenProject", // OpenProject, AllProjects
+    "includedProjects": "",
+    "pathEndKeywords": "*.impl",
+    "isClientPath": "",
+    "isClientName": "",
+    "isTestPath": "",
+    "isTestName": "",
+    "isMappingPath": "",
+    "isMappingName": "",
+    "isDataAccessPath": "",
+    "isDataAccessName": "",
+    "isDataStructurePath": "",
+    "isDataStructureName": "",
+    "isInterfaceStructuresPath": "",
+    "isInterfaceStructuresName": "",
+    "isEntryPointPath": "",
+    "isEntryPointName": "",
+    "treatFinalFieldsAsMandatory": false
+  },
+  "graphRestriction": {
+    "classPackageExcludeFilter": "",
+    "classPackageIncludeFilter": "",
+    "classNameExcludeFilter": "",
+    "classNameIncludeFilter": "",
+    "methodNameExcludeFilter": "",
+    "methodNameIncludeFilter": "",
+    "removeByInheritance": "", // inheritance/annotation based filtering is done in a second step
+    "removeByAnnotation": "",
+    "removeByClassPackage": "", // cleanup the graph after inheritance/annotation based filtering is done
+    "removeByClassName": "",
+    "cutMappings": false,
+    "cutEnum": true,
+    "cutTests": true,
+    "cutClient": true,
+    "cutDataAccess": false,
+    "cutInterfaceStructures": false,
+    "cutDataStructures": false,
+    "cutGetterAndSetter": true,
+    "cutConstructors": true
+  },
+  "graphTraversal": {
+    "forwardDepth": 6,
+    "backwardDepth": 6,
+    "classPackageExcludeFilter": "",
+    "classPackageIncludeFilter": "",
+    "classNameExcludeFilter": "",
+    "classNameIncludeFilter": "",
+    "methodNameExcludeFilter": "",
+    "methodNameIncludeFilter": "",
+    "hideMappings": false,
+    "hideDataStructures": false,
+    "hidePrivateMethods": true,
+    "hideInterfaceCalls": true, // indirection: implementation -> interface (is hidden) -> implementation
+    "onlyShowApplicationEntryPoints": false, // root node is included
+    "useMethodCallsForStructureDiagram": "ForwardOnly" // ForwardOnly, BothDirections, No
+  },
+  "details": {
+    "aggregation": "GroupByClass", // ByClass, GroupByClass, None
+    "showClassGenericTypes": true,
+    "showMethods": true,
+    "showMethodParameterNames": true,
+    "showMethodParameterTypes": true,
+    "showMethodReturnType": true,
+    "showPackageLevels": 2,
+    "showDetailedClassStructure": true
+  },
+  "rootClass": "com.zergatstage.hw03.Harvester",
+  "extensionCallbackMethod": "" // qualified.class.name#methodName - signature: public static String method(String)
+}
+diagram meta data end '/
+
+
+
+digraph g {
+    rankdir="TB"
+    splines=polyline
+    
+
+'nodes 
+subgraph cluster_4019189 { 
+   	label=zergatstage
+	labeljust=l
+	fillcolor="#ececec"
+	style=filled
+   
+   subgraph cluster_545744725 { 
+   	label=hw03
+	labeljust=l
+	fillcolor="#d8d8d8"
+	style=filled
+   
+   Car295754786[
+	label=<<TABLE BORDER="1" CELLBORDER="0" CELLPADDING="4" CELLSPACING="0">
+<TR><TD ALIGN="LEFT" >(C)Car</TD></TR>
+<HR/>
+<TR><TD ALIGN="LEFT" >-   color: Color [0..1]</TD></TR>
+<TR><TD ALIGN="LEFT" >-   engineCapacity: double [1]</TD></TR>
+<TR><TD ALIGN="LEFT" >-   fogLights: boolean [1]</TD></TR>
+<TR><TD ALIGN="LEFT" >#   fuelType: FuelType [0..1]</TD></TR>
+<TR><TD ALIGN="LEFT" >-   gearboxType: GearboxType [0..1]</TD></TR>
+<TR><TD ALIGN="LEFT" >-   make: String [0..1]</TD></TR>
+<TR><TD ALIGN="LEFT" >-   model: String [0..1]</TD></TR>
+<TR><TD ALIGN="LEFT" >-   refueling: Refueling [0..1]</TD></TR>
+<TR><TD ALIGN="LEFT" >#   type: CarType [0..1]</TD></TR>
+<TR><TD ALIGN="LEFT" >#   wheelsCount: int [1]</TD></TR>
+<HR/>
+<TR><TD ALIGN="LEFT" >+ fuel()</TD></TR>
+<TR><TD ALIGN="LEFT" >+ gearShifting(): boolean</TD></TR>
+<TR><TD ALIGN="LEFT" >+ maintenance()</TD></TR>
+<TR><TD ALIGN="LEFT" >+ movement()</TD></TR>
+<TR><TD ALIGN="LEFT" >+ switchFogLights(): boolean</TD></TR>
+<TR><TD ALIGN="LEFT" >+ switchHeadlights(): boolean</TD></TR>
+<TR><TD ALIGN="LEFT" >+ switchWipers(): boolean</TD></TR>
+</TABLE>>
+	style=filled
+	margin=0
+	shape=plaintext
+	fillcolor="#FFFFFF"
+];
+
+Harvester295754786[
+	label=<<TABLE BORDER="1" CELLBORDER="0" CELLPADDING="4" CELLSPACING="0">
+<TR><TD ALIGN="LEFT" >(C)Harvester</TD></TR>
+<HR/>
+<TR><TD ALIGN="LEFT" >+ gearShifting(): boolean</TD></TR>
+<TR><TD ALIGN="LEFT" >+ maintenance()</TD></TR>
+<TR><TD ALIGN="LEFT" >+ movement()</TD></TR>
+<TR><TD ALIGN="LEFT" >+ sweeping()</TD></TR>
+<TR><TD ALIGN="LEFT" >+ switchHeadlights(): boolean</TD></TR>
+<TR><TD ALIGN="LEFT" >+ switchWipers(): boolean</TD></TR>
+</TABLE>>
+	style=filled
+	margin=0
+	shape=plaintext
+	fillcolor="#FFFFFF"
+];
+
+RefuelingStation295754786[
+	label=<<TABLE BORDER="1" CELLBORDER="0" CELLPADDING="4" CELLSPACING="0">
+<TR><TD ALIGN="LEFT" >(C)RefuelingStation</TD></TR>
+<HR/>
+<TR><TD ALIGN="LEFT" >+ fuel(fuelType: FuelType)</TD></TR>
+</TABLE>>
+	style=filled
+	margin=0
+	shape=plaintext
+	fillcolor="#FFFFFF"
+];
+
+RefuelingStationV2295754786[
+	label=<<TABLE BORDER="1" CELLBORDER="0" CELLPADDING="4" CELLSPACING="0">
+<TR><TD ALIGN="LEFT" >(C)RefuelingStationV2</TD></TR>
+<HR/>
+<TR><TD ALIGN="LEFT" >+ fuel(fuelType: FuelType)</TD></TR>
+<TR><TD ALIGN="LEFT" >+ processCarFuel(fuelType: FuelType)</TD></TR>
+</TABLE>>
+	style=filled
+	margin=0
+	shape=plaintext
+	fillcolor="#FFFFFF"
+];
+
+ServiceStation295754786[
+	label=<<TABLE BORDER="1" CELLBORDER="0" CELLPADDING="4" CELLSPACING="0">
+<TR><TD ALIGN="LEFT" >(C)ServiceStation</TD></TR>
+<HR/>
+<TR><TD ALIGN="LEFT" >+ fuel(fuelType: FuelType)</TD></TR>
+<TR><TD ALIGN="LEFT" >+ wipHeadlights()</TD></TR>
+<TR><TD ALIGN="LEFT" >+ wipMirrors()</TD></TR>
+<TR><TD ALIGN="LEFT" >+ wipWindshield()</TD></TR>
+</TABLE>>
+	style=filled
+	margin=0
+	shape=plaintext
+	fillcolor="#FFFFFF"
+];
+
+SportCar295754786[
+	label=<<TABLE BORDER="1" CELLBORDER="0" CELLPADDING="4" CELLSPACING="0">
+<TR><TD ALIGN="LEFT" >(C)SportCar</TD></TR>
+<HR/>
+<TR><TD ALIGN="LEFT" >+ create(make: String, model: String, color: Color): SportCar</TD></TR>
+<TR><TD ALIGN="LEFT" >+ create(make: String, model: String, color: Color, wheelsCount: int): SportCar</TD></TR>
+<TR><TD ALIGN="LEFT" >+ gearShifting(): boolean</TD></TR>
+<TR><TD ALIGN="LEFT" >+ maintenance()</TD></TR>
+<TR><TD ALIGN="LEFT" >+ movement()</TD></TR>
+<TR><TD ALIGN="LEFT" >+ switchHeadlights(): boolean</TD></TR>
+<TR><TD ALIGN="LEFT" >+ switchWipers(): boolean</TD></TR>
+</TABLE>>
+	style=filled
+	margin=0
+	shape=plaintext
+	fillcolor="#FFFFFF"
+];
+} 
+} 
+
+'edges    
+Car295754786 -> Harvester295754786[arrowhead=none, arrowtail=empty, dir=both];
+Car295754786 -> RefuelingStation295754786[arrowhead=none];
+Car295754786 -> RefuelingStationV2295754786[arrowhead=none];
+Car295754786 -> ServiceStation295754786[arrowhead=none];
+Car295754786 -> SportCar295754786[arrowhead=none, arrowtail=empty, dir=both];
+    
+}
+@enduml

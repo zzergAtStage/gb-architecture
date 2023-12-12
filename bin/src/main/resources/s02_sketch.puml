@@ -1,0 +1,69 @@
+@startuml
+'https://plantuml.com/class-diagram
+
+abstract class BaseLogReaderCreator {
+    +createLogRead()
+}
+
+abstract class LogReader{
+    -currentPosition Integer
+    +setCurrentPosition()
+    +readLogEntry(): Iterable<<LogEntry>>
+    {abstract} +getDataSource(): Object
+    {abstract} +setDataSource(Object data)
+    {abstract} +readEntries(Integer position) Iterable<String>
+    {abstract} +parseLogEntry(String stringEntity) LogEntry
+}
+
+enum LogType{
+    Text
+    Poem
+    Database
+    System
+}
+
+class DatabaseReader{
+    +getDataSource(): Object;
+    +setDataSource(Object data)
+    +readEntries(): Iterable<String>
+    +parseLogEntry(): LogEntry
+}
+class ConcreteReaderCreator{
+    +ConcreteReaderCreator(LogType): LogReader
+}
+class LogEntry{
+    -text: String
+    +getText(): String
+    +LogEntry(): String
+}
+class PoemReader{
+    -data: String
+    +getDataSource: Object
+    +PoemReader(String)
+    +readEntries: Iterable<String>
+    +parseLogEntry(String): LogEntry
+}
+class TextFileReader{
+    -data: String
+    +getDataSource: Object
+    +TextFileReader(String)
+    +readEntries: Iterable<String>
+    +parseLogEntry(String): LogEntry
+}
+
+
+class DatabaseReader extends LogReader
+class ConcreteReaderCreator extends BaseLogReaderCreator
+class PoemReader extends LogReader
+class TextFileReader extends LogReader
+ConcreteReaderCreator::ConcreteReaderCreator .> LogType
+PoemReader::parseLogEntry ..> LogEntry
+DatabaseReader::parseLogEntry ..> LogEntry
+TextFileReader::parseLogEntry ..> LogEntry
+ConcreteReaderCreator ..|> LogReader
+TextFileReader <-- ConcreteReaderCreator
+PoemReader <-- ConcreteReaderCreator
+DatabaseReader <-- ConcreteReaderCreator
+
+
+@enduml

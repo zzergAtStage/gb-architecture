@@ -1,0 +1,32 @@
+@startuml
+
+interface Observer {
+    {abstract} update(message: String)
+}
+
+interface EventListenerInterface {
+    {abstract} registerObserver(observer: Observer)
+    {abstract} removeObserver(observer: Observer)
+    {abstract} notifyObservers(message: String)
+}
+
+class ConcreteObserver {
+    -name: String
+    +ConcreteObserver(name: String)
+    +update(message: String)
+}
+
+class ConcreteProduct {
+    -observers: List<Observer>
+    +ConcreteSubject()
+    {abstract} registerObserver(observer: Observer)
+    {abstract} removeObserver(observer: Observer)
+    {abstract} notifyObservers(message: String)
+}
+
+EventListenerInterface <|.. ConcreteProduct
+ConcreteProduct ..> Observer
+Observer <|.. ConcreteObserver
+ConcreteProduct "1" o-- "0..*" ConcreteObserver : observers
+
+@enduml
