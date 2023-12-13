@@ -1,0 +1,40 @@
+@startuml
+'https://plantuml.com/component-diagram
+
+
+database "DataBase" {
+  folder "OrderService" {
+    [OrdersBucket]
+  }
+
+frame "Storage" {
+    [Customers]
+    [Tickets]
+    [Orders]
+  }
+}
+package "TicketService" {
+   [Ticket] - [TicketProvider]
+}
+[Core] -[hidden]u-> [TicketService]
+package "CustomerService" {
+  [CustomerProvider]  <-d-  [Customer]
+  '[CustomerProvider] --> '
+}
+
+cloud  {
+  [PaymentProvider]
+}
+
+
+
+  [OrdersBucket] --> [Orders]
+  [DataBase] -[hidden]u-> [CustomerService]
+  [DataBase] -[hidden]r-> [TicketService]
+[TicketProvider] --(0- [PaymentProvider]
+[TicketProvider] --(0- [Core]
+[Core] -0)- [CustomerProvider]
+[PaymentProvider] --> [OrdersBucket]
+
+
+@enduml

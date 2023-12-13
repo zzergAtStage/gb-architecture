@@ -10,10 +10,16 @@ public class Program {
      * @param args
      */
     public static void main(String[] args) {
-
+        MobileApp mobileApp;
         Core core = new Core();
+        try {
+            mobileApp = new MobileApp(core.getTicketProvider(), core.getCustomerProvider());
 
-        MobileApp mobileApp = new MobileApp(core.getTicketProvider(), core.getCustomerProvider());
+        } catch (RuntimeException e) {
+            throw new RuntimeException(e);
+            //System.out.println(e.getMessage() + "\n try again later...");
+            //return;
+        }
 
         BusStation busStation = new BusStation(core.getTicketProvider());
 
@@ -23,8 +29,6 @@ public class Program {
         Collection<Ticket> tickets = mobileApp.getTickets();
 
         busStation.checkTicket("AAA");
-
-
     }
 
 }
