@@ -1,0 +1,56 @@
+@startuml
+
+
+database "database" <<InMemory>> #Physical {
+
+  [NotesDatabase] --* "1" [NotesTable]
+  [NotesRecord] "1..*" o-- [NotesTable]
+}
+
+node "notes" {
+    package "application"  {
+        folder "interfaces"{
+            interface [Editor] #Technology
+            interface [NoteEditor] #Implementation
+            interface ["NoteDataBaseContext"] #Implementation
+            interface ["NotePresenter"] #Implementation
+        }
+        [ConcreteNoteEditor] #Implementation
+    }
+    package "domain" #Business {
+        [Note]
+    }
+    frame "infrastructure"{
+        package "notification"{
+        }
+        package "persistance"{
+            [Database] #Application
+            [DatabaseContext] #Implementation
+            [dbContext]
+            [iModelConfiguration]
+            folder "configuration"{
+                [NoteConfiguration]
+            }
+        }
+        package "search"{
+        }
+        package "presentation" #Technology {
+            package "commands"{
+            }
+            package "queries" {
+                folder "controllers" {
+                    [Controller]
+                    [NotesController]
+                }
+                folder "views" #Application {
+                    [NotesConsolePresenter]
+                    [Presenter]
+                }
+            }
+            package "services" {
+            }
+        }
+    }
+}
+
+@enduml
