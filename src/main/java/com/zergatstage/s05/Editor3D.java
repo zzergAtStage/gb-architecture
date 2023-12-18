@@ -1,6 +1,9 @@
-package com.zergatstage.s05.controller;
+package com.zergatstage.s05;
 
 import com.zergatstage.s05.UI.UILayer;
+import com.zergatstage.s05.controller.BusinessLogicalLayer;
+import com.zergatstage.s05.controller.EditorBusinessLogicalLayer;
+import com.zergatstage.s05.controller.EditorDatabase;
 import com.zergatstage.s05.model.Model3D;
 import com.zergatstage.s05.model.Texture;
 import com.zergatstage.s05.persistance.Database;

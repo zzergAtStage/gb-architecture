@@ -1,7 +1,5 @@
 package com.zergatstage.s05;
 
-import com.zergatstage.s05.controller.Editor3D;
-
 import java.util.Scanner;
 
 public class Program {
