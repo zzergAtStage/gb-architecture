@@ -1,4 +1,4 @@
-package com.zergatstage.s05;
+package com.zergatstage.s05.UI;
 
 public interface UILayer {
 

@@ -1,4 +1,6 @@
-package com.zergatstage.s05;
+package com.zergatstage.s05.model;
+
+import com.zergatstage.s05.model.Entity;
 
 public class Texture implements Entity {
 

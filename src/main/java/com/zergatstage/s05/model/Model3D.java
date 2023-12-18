@@ -1,4 +1,4 @@
-package com.zergatstage.s05;
+package com.zergatstage.s05.model;
 
 import java.util.ArrayList;
 import java.util.Collection;

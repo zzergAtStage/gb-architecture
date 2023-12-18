@@ -1,4 +1,11 @@
-package com.zergatstage.s05;
+package com.zergatstage.s05.controller;
+
+import com.zergatstage.s05.model.Database;
+import com.zergatstage.s05.model.DatabaseAccess;
+import com.zergatstage.s05.UI.UILayer;
+import com.zergatstage.s05.model.Model3D;
+import com.zergatstage.s05.model.ProjectFile;
+import com.zergatstage.s05.model.Texture;
 
 import java.util.ArrayList;
 

@@ -1,4 +1,7 @@
-package com.zergatstage.s05;
+package com.zergatstage.s05.controller;
+
+import com.zergatstage.s05.model.Model3D;
+import com.zergatstage.s05.model.Texture;
 
 import java.util.Collection;
 
