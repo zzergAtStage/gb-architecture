@@ -1,9 +1,9 @@
 package com.zergatstage.s05.controller;
 
-import com.zergatstage.s05.model.Database;
+import com.zergatstage.s05.persistance.Database;
 import com.zergatstage.s05.model.Entity;
 import com.zergatstage.s05.model.Model3D;
-import com.zergatstage.s05.model.ProjectFile;
+import com.zergatstage.s05.persistance.ProjectFile;
 import com.zergatstage.s05.model.Texture;
 
 import java.util.ArrayList;
