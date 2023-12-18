@@ -1,36 +1,51 @@
 @startuml
 
 
-database "database" <<InMemory>> #Physical {
-
+database "database" <<InMemory>> #Application {
+  [NotesRecord] #Business
   [NotesDatabase] --* "1" [NotesTable]
-  [NotesRecord] "1..*" o-- [NotesTable]
+  [NotesRecord]  "1..*" o-- [NotesTable]
+
 }
 
 node "notes" {
     package "application"  {
         folder "interfaces"{
-            interface [Editor] #Technology
-            interface [NoteEditor] #Implementation
-            interface ["NoteDataBaseContext"] #Implementation
-            interface ["NotePresenter"] #Implementation
+            () Editor #Technology
+            () NoteEditor #Technology
+            () NoteDatabaseContext #Technology
+            () NotesPresenter #Technology
+            [NoteEditor] --|> [Editor] <<Note, Integer>>
         }
         [ConcreteNoteEditor] #Implementation
+        [ConcreteNoteEditor] ..|> [NoteEditor]
+        [ConcreteNoteEditor] --> [NotesPresenter]
+        [ConcreteNoteEditor] --> [NoteDatabaseContext]
+
     }
-    package "domain" #Business {
+    package "domain" $a1 #Business {
         [Note]
     }
+    [ConcreteNoteEditor] -> [Note]
     frame "infrastructure"{
         package "notification"{
         }
         package "persistance"{
-            [Database] #Application
+            [Database] #Technology
             [DatabaseContext] #Implementation
-            [dbContext]
-            [iModelConfiguration]
+            component [dbContext] #Technology{
+                [ModelBuilder]
+            }
+            [NotesDatabase] ..|> [Database]
+            [ModelConfiguration]
             folder "configuration"{
                 [NoteConfiguration]
             }
+            [DatabaseContext] --|> [dbContext]
+            [DatabaseContext] ..|> [NoteDatabaseContext]
+            [DatabaseContext] --> [Database]
+            [NoteConfiguration] ..|> [ModelConfiguration]
+            [ModelBuilder] --> ModelConfiguration
         }
         package "search"{
         }
@@ -42,15 +57,23 @@ node "notes" {
                     [Controller]
                     [NotesController]
                 }
+                [NotesController] -> [NoteEditor]
                 folder "views" #Application {
                     [NotesConsolePresenter]
                     [Presenter]
                 }
+                [NotesConsolePresenter] ..|> [NotesPresenter]
+                [NotesController] --|> [Controller]
+                views -[hidden]d-> controllers
             }
             package "services" {
             }
+
+
         }
     }
+    ' application -[hidden]down-> infrastructure
+     application <--down[hidden] infrastructure
 }
 
 @enduml

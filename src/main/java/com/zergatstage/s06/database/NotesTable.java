@@ -14,6 +14,9 @@ public class NotesTable {
         return records;
     }
 
+    public void addRecord(NotesRecord record){
+        records.add(record);
+    }
     private void prepareRecords() {
         if (records == null) {
             records = new ArrayList<>();
@@ -23,5 +26,16 @@ public class NotesTable {
             }
         }
     }
+    public boolean updateRecord(NotesRecord record) {
+        for (NotesRecord rec : records) {
+            if (rec.getId() == record.getId()) {
+                rec.setTitle(record.getTitle());
+                rec.setDetails(record.getDetails());
+                return true;
+            }
+        }
+        return false;
+    }
+
 
 }

@@ -1,5 +1,10 @@
 package com.zergatstage.s06.notes.infrastructure.persistance;
 
+import com.zergatstage.s06.database.NotesDatabase;
+import com.zergatstage.s06.database.NotesRecord;
+
+import java.util.Collection;
+
 public abstract class DbContext {
 
     protected Database database;
@@ -12,15 +17,20 @@ public abstract class DbContext {
 
     public boolean saveChanges(){
         //TODO: Сохранение изменений в базе данных
+        Collection<NotesRecord> records = ((NotesDatabase) database).getNotesTable().getRecords();
+        for (NotesRecord record : records) {
+            ;//do something - like set states, update index etc.
+        }
+
         return true;
     }
 
 }
 
 class ModelBuilder{
-
+    ModelConfiguration configuration;
     public ModelBuilder applyConfiguration(ModelConfiguration configuration){
-        //TODO: добавление конфигурации маппинга объекта некоторого типа к структуре таблицы базы данных ...
+        this.configuration = configuration;//TODO: добавление конфигурации маппинга объекта некоторого типа к структуре таблицы базы данных ...
         return this;
     }
 

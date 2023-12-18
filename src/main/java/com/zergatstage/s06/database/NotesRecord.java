@@ -9,6 +9,7 @@ import java.util.Date;
 @Getter
 public class NotesRecord {
 
+    @Getter
     private static int counter;
 
     private int userId;
@@ -28,6 +29,5 @@ public class NotesRecord {
         this.details = details;
         creationDate = new Date();
     }
-
 
 }

@@ -1,17 +1,33 @@
 package com.zergatstage.s06.notes.domain;
 
+import lombok.Getter;
+import lombok.Setter;
+
 import java.util.Date;
 
+@Getter
 public class Note {
 
+    @Setter
+    private int userId;
+    private final int id;
+    @Setter
+    private String title;
+    @Setter
+    private String details;
+    private final Date creationDate;
+    @Setter
+    private Date editDate;
 
-    public Note(int id, int userId, String title, String details, Date creationDate){
-        this.id = id;
+
+    public Note(int id, int userId, String title, String details, Date creationDate) {
+        this.id = id;//possible? there is a bug? Constructor doesn't use counter
         this.title = title;
         this.details = details;
         this.creationDate = creationDate;
         this.userId = userId;
     }
+
 
     @Override
     public String toString() {
@@ -24,53 +40,4 @@ public class Note {
                 ", editDate=" + editDate +
                 '}';
     }
-
-    private int userId;
-    private int id;
-    private String title;
-    private String details;
-    private Date creationDate;
-    private Date editDate;
-
-    public int getUserId() {
-        return userId;
-    }
-
-    public int getId() {
-        return id;
-    }
-
-    public String getTitle() {
-        return title;
-    }
-
-    public String getDetails() {
-        return details;
-    }
-
-    public Date getCreationDate() {
-        return creationDate;
-    }
-
-    public Date getEditDate() {
-        return editDate;
-    }
-
-    public void setTitle(String title) {
-        this.title = title;
-    }
-
-    public void setEditDate(Date editDate) {
-        this.editDate = editDate;
-    }
-
-    public void setUserId(int userId) {
-        this.userId = userId;
-    }
-
-    public void setDetails(String details) {
-        this.details = details;
-    }
-
-
 }
