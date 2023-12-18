@@ -1,8 +1,8 @@
 package com.zergatstage.s05.controller;
 
-import com.zergatstage.s05.persistance.DatabaseAccess;
 import com.zergatstage.s05.model.Model3D;
 import com.zergatstage.s05.model.Texture;
+import com.zergatstage.s05.persistance.DatabaseAccess;
 
 import java.util.Collection;
 import java.util.Random;
