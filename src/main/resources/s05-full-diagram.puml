@@ -1,0 +1,174 @@
+@startuml
+interface Entity [[java:com.zergatstage.s05.Entity]] {
+	getId(): int
+}
+class Program [[java:com.zergatstage.s05.Program]] {
+	+{static} main(args: String[]): void
+}
+interface UILayer [[java:com.zergatstage.s05.UILayer]] {
+	openProject(fileName: String): void
+	showProjectSettings(): void
+	saveProject(): void
+	printAllModels(): void
+	printAllTextures(): void
+	renderAll(): void
+	renderModel(i: int): void
+}
+class EditorDatabase [[java:com.zergatstage.s05.EditorDatabase]] {
+	    - final ProjectFile projectFile;
+        - Collection<Entity> entities;
+        - Random random = new Random();
+
+	-random: Random
+	+EditorDatabase(projectFile: ProjectFile)
+	+load(): void
+	+save(): void
+	-generateModelAndTextures(): void
+}
+class ProjectFile {
+}
+EditorDatabase --> "1" ProjectFile : projectFile
+class Entity {
+}
+EditorDatabase --> "*" Entity : entities
+class Entity {
+}
+EditorDatabase --> "*" Entity : getAll()
+class Texture {
+}
+EditorDatabase --> "1" Texture : generateTexture()
+interface Database {
+}
+Database <|.. EditorDatabase
+interface BusinessLogicalLayer [[java:com.zergatstage.s05.BusinessLogicalLayer]] {
+	renderModel(model: Model3D): void
+	renderAllModels(): void
+}
+class Model3D {
+}
+BusinessLogicalLayer --> "*" Model3D : getAllModels()
+class Texture {
+}
+BusinessLogicalLayer --> "*" Texture : getAllTextures()
+class EditorDatabaseAccess [[java:com.zergatstage.s05.EditorDatabaseAccess]] {
+	+EditorDatabaseAccess(editorDatabase: Database)
+	+addEntity(entity: Entity): void
+	+removeEntity(entity: Entity): void
+}
+class Database {
+}
+EditorDatabaseAccess --> "1" Database : editorDatabase
+class Texture {
+}
+EditorDatabaseAccess --> "*" Texture : getAllTextures()
+class Model3D {
+}
+EditorDatabaseAccess --> "*" Model3D : getAllModels()
+interface DatabaseAccess {
+}
+DatabaseAccess <|.. EditorDatabaseAccess
+class Editor3D [[java:com.zergatstage.s05.Editor3D]] {
+    - projectFile: ProjectFile
+    - businessLogicalLayer: BusinessLogicalLayer
+    - databaseAccess: DatabaseAccess
+    - database: Database
+
+	+Editor3D()
+	-initialize(): void
+	+openProject(fileName: String): void
+	+showProjectSettings(): void
+	+saveProject(): void
+	+printAllModels(): void
+	+printAllTextures(): void
+	+renderAll(): void
+	+renderModel(i: int): void
+}
+class ProjectFile {
+}
+Editor3D --> "1" ProjectFile : projectFile
+class BusinessLogicalLayer {
+}
+Editor3D --> "1" BusinessLogicalLayer : businessLogicalLayer
+class DatabaseAccess {
+}
+Editor3D --> "1" DatabaseAccess : databaseAccess
+class Database {
+}
+Editor3D --> "1" Database : database
+interface UILayer {
+}
+UILayer <|.. Editor3D
+class ProjectFile [[java:com.zergatstage.s05.ProjectFile]] {
+	-fileName: String
+	-setting1: int
+	-setting2: String
+	-setting3: boolean
+	+getSetting1(): int
+	+getSetting2(): String
+	+getSetting3(): boolean
+	+getFileName(): String
+	+ProjectFile(fileName: String)
+}
+class EditorBusinessLogicalLayer [[java:com.zergatstage.s05.EditorBusinessLogicalLayer]] {
+	-random: Random
+	+EditorBusinessLogicalLayer(databaseAccess: DatabaseAccess)
+	+renderModel(model: Model3D): void
+	+renderAllModels(): void
+	-processRender(model: Model3D): void
+}
+class DatabaseAccess {
+}
+EditorBusinessLogicalLayer --> "1" DatabaseAccess : databaseAccess
+class Model3D {
+}
+EditorBusinessLogicalLayer --> "*" Model3D : getAllModels()
+class Texture {
+}
+EditorBusinessLogicalLayer --> "*" Texture : getAllTextures()
+interface BusinessLogicalLayer {
+}
+BusinessLogicalLayer <|.. EditorBusinessLogicalLayer
+class Texture [[java:com.zergatstage.s05.Texture]] {
+	-{static} counter: int
+	-id: int
+	+getId(): int
+	+toString(): String
+}
+interface Entity {
+}
+Entity <|.. Texture
+interface DatabaseAccess [[java:com.zergatstage.s05.DatabaseAccess]] {
+	addEntity(entity: Entity): void
+	removeEntity(entity: Entity): void
+}
+class Texture {
+}
+DatabaseAccess --> "*" Texture : getAllTextures()
+class Model3D {
+}
+DatabaseAccess --> "*" Model3D : getAllModels()
+class Model3D [[java:com.zergatstage.s05.Model3D]] {
+	-{static} counter: int
+	-id: int
+	+Model3D()
+	+Model3D(textures: Collection<Texture>)
+	+getId(): int
+	+toString(): String
+}
+class Texture {
+}
+Model3D --> "*" Texture : textures
+class Texture {
+}
+Model3D --> "*" Texture : getTextures()
+interface Entity {
+}
+Entity <|.. Model3D
+interface Database [[java:com.zergatstage.s05.Database]] {
+	load(): void
+	save(): void
+}
+class Entity {
+}
+Database --> "*" Entity : getAll()
+@enduml
