@@ -1,0 +1,79 @@
+@startuml
+
+
+database "database" <<InMemory>> #Application {
+  [NotesRecord] #Business
+  [NotesDatabase] --* "1" [NotesTable]
+  [NotesRecord]  "1..*" o-- [NotesTable]
+
+}
+
+node "notes" {
+    package "application"  {
+        folder "interfaces"{
+            () Editor #Technology
+            () NoteEditor #Technology
+            () NoteDatabaseContext #Technology
+            () NotesPresenter #Technology
+            [NoteEditor] --|> [Editor] <<Note, Integer>>
+        }
+        [ConcreteNoteEditor] #Implementation
+        [ConcreteNoteEditor] ..|> [NoteEditor]
+        [ConcreteNoteEditor] --> [NotesPresenter]
+        [ConcreteNoteEditor] --> [NoteDatabaseContext]
+
+    }
+    package "domain" $a1 #Business {
+        [Note]
+    }
+    [ConcreteNoteEditor] -> [Note]
+    frame "infrastructure"{
+        package "notification"{
+        }
+        package "persistance"{
+            [Database] #Technology
+            [DatabaseContext] #Implementation
+            component [dbContext] #Technology{
+                [ModelBuilder]
+            }
+            [NotesDatabase] ..|> [Database]
+            [ModelConfiguration]
+            folder "configuration"{
+                [NoteConfiguration]
+            }
+            [DatabaseContext] --|> [dbContext]
+            [DatabaseContext] ..|> [NoteDatabaseContext]
+            [DatabaseContext] --> [Database]
+            [NoteConfiguration] ..|> [ModelConfiguration]
+            [ModelBuilder] --> ModelConfiguration
+        }
+        package "search"{
+        }
+        package "presentation" #Technology {
+            package "commands"{
+            }
+            package "queries" {
+                folder "controllers" {
+                    [Controller]
+                    [NotesController]
+                }
+                [NotesController] -> [NoteEditor]
+                folder "views" #Application {
+                    [NotesConsolePresenter]
+                    [Presenter]
+                }
+                [NotesConsolePresenter] ..|> [NotesPresenter]
+                [NotesController] --|> [Controller]
+                views -[hidden]d-> controllers
+            }
+            package "services" {
+            }
+
+
+        }
+    }
+    ' application -[hidden]down-> infrastructure
+     application <--down[hidden] infrastructure
+}
+
+@enduml
