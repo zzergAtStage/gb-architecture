@@ -7,7 +7,6 @@ import com.zergatstage.s08.presenters.ViewObserver;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Date;
-import java.util.List;
 
 public class BookingView implements View {
 
@@ -18,8 +17,8 @@ public class BookingView implements View {
         observers.add(observer);
     }
 
-    public void showTables(Collection<Table> tables){
-        for (Table table: tables) {
+    public void showTables(Collection<Table> tables) {
+        for (Table table : tables) {
             System.out.println(table);
         }
     }
@@ -29,17 +28,19 @@ public class BookingView implements View {
         if (reservationNo > 0)
             System.out.printf("Столик успешно забронирован. Номер вашей брони: #%d\n", reservationNo);
         else
-            System.out.println("Не удалось забронировать столик. Повторите попытку позже.");
+            System.out.println("Не удалось забронировать столик. Повторите попытку позже. ");
 
     }
 
-    public void changeReservationTable(int oldReservation, Date reservationDate, int tableNo, String name){
+    public void changeReservationTable(int oldReservation, Date reservationDate, int tableNo, String name) {
+        for (ViewObserver observer: observers){
+            observer.onEditReservationTable(oldReservation,reservationDate,tableNo,name);
+        }
     }
 
-
-
-    public void reservationTable(Date orderDate, int tableNo, String name){
-        for (ViewObserver observer : observers){
+    //observers receive notifications
+    public void reservationTable(Date orderDate, int tableNo, String name) {
+        for (ViewObserver observer : observers) {
             observer.onReservationTable(orderDate, tableNo, name);
         }
     }

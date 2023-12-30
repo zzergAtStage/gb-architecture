@@ -12,6 +12,16 @@ public class Reservation {
     private Date date;
     private String name;
 
+    {
+        id = ++counter;
+    }
+
+    public Reservation(Table table, Date date, String name) {
+        this.table = table;
+        this.date = date;
+        this.name = name;
+    }
+
     public int getId() {
         return id;
     }
@@ -24,14 +34,9 @@ public class Reservation {
         return name;
     }
 
-    {
-        id = ++counter;
-    }
+    //setter dor edit reservation
 
-    public Reservation(Table table, Date date, String name) {
-        this.table = table;
+    public void setDate(Date date) {
         this.date = date;
-        this.name = name;
     }
-
 }

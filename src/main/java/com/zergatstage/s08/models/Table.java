@@ -25,7 +25,12 @@ public class Table {
 
     @Override
     public String toString() {
-        return String.format(Locale.getDefault(), "Столик #%d", no);
+        StringBuilder stringTable = new StringBuilder(String.format(Locale.getDefault(), "Столик #%d", no));
+        for (Reservation reservation: getReservations()){
+            stringTable.append("\n\t[" + reservation.getId() + " " + reservation.getDate() + " " +reservation.getName() + "]\n" );
+        }
+        return stringTable.toString();
+
     }
 
 }

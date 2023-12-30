@@ -38,7 +38,26 @@ public class TableService implements Model {
         throw new RuntimeException("Некорректный номер столика");
     }
 
-    public int changeReservationTable(int oldReservation, Date reservationDate, int tableNo, String name) {
+    /**
+     * @param oldReservation
+     * @param reservationDate
+     * @param tableNo
+     * @param name
+     * @return Reservation id or -1
+     */
+    @Override
+    public int editReservationTable(int oldReservation, Date reservationDate, int tableNo, String name) {
+        for (Table table: tables){
+            if (table.getNo()== tableNo){
+                for (Reservation reservation: table.getReservations()){
+                    if (reservation.getId() == oldReservation){
+                        reservation.setDate(reservationDate);
+                        return reservation.getId();
+                    }
+                }
+            }
+        }
         return -1;
     }
+
 }
